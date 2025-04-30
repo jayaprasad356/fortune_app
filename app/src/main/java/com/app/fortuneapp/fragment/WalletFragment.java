@@ -272,7 +272,7 @@ public class WalletFragment extends Fragment {
             params.put(Constant.USER_ID,session.getData(Constant.USER_ID));
             params.put(Constant.CODES,"0");
             ApiConfig.RequestToVolley((result, response) -> {
-                Log.d("WALLET_RES",response);
+                Log.d("WALLET_RES1",response);
                 if (result) {
                     try {
                         JSONObject jsonObject = new JSONObject(response);

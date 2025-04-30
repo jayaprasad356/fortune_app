@@ -122,10 +122,10 @@ public class HomeFragment extends Fragment {
     CircularProgressIndicator cbCodes;
     TextView tvHightlight, tvInfo;
     ProgressDialog progressDialog;
-    long st_timestamp;
+    long st_timestamp = 0;
     ClipboardManager clipBoard;
     LinearLayout lltrail, llPayed;
-    String RandomId;
+    String RandomId  = "";
     DatabaseReference reference;
     TextView tvChampionTask;
     TextView tvsync_unique_id;
@@ -292,16 +292,27 @@ public class HomeFragment extends Fragment {
         });
 
 
-        int working_codes  = session.getInt(Constant.TODAY_CODES)  / Integer.parseInt(session.getData(PER_CODE_VAL));
-        int bonus_codes  = session.getInt(Constant.TODAY_CODES)  - working_codes;
+        String perCodeValStr = session.getData(PER_CODE_VAL);
 
+        if (perCodeValStr != null && !perCodeValStr.isEmpty()) {
+            int perCodeVal = Integer.parseInt(perCodeValStr);
+            int todayCodes = session.getInt(Constant.TODAY_CODES);
 
-        Log.d("code_value", String.valueOf(Integer.parseInt(session.getData(PER_CODE_VAL))));
-        Log.d("today_code", String.valueOf(session.getInt(Constant.TODAY_CODES)  / Integer.parseInt(session.getData(PER_CODE_VAL))));
+            int working_codes = todayCodes / perCodeVal;
+            int bonus_codes = todayCodes - working_codes;
 
+            Log.d("code_value", String.valueOf(perCodeVal));
+            Log.d("today_code", String.valueOf(working_codes));
 
-        tvWorkingCodes.setText(""+session.getInt(Constant.TODAY_CODES)  / Integer.parseInt(session.getData(PER_CODE_VAL)));
-        tvBonusCodes.setText(""+bonus_codes );
+            tvWorkingCodes.setText(String.valueOf(working_codes));
+            tvBonusCodes.setText(String.valueOf(bonus_codes));
+        } else {
+            // Handle the case where perCodeValStr is null or empty
+            Log.e("HomeFragment", "PER_CODE_VAL is empty or null");
+            tvWorkingCodes.setText("0");
+            tvBonusCodes.setText("0");
+        }
+
 
 
 
@@ -418,11 +429,16 @@ public class HomeFragment extends Fragment {
                         return;
                     } else {
                         long ed_timestamp = System.currentTimeMillis();
+                        Log.d("ValueTesting", "ed_timestamp " + ed_timestamp);
 
                         long difference = ed_timestamp - st_timestamp;
+                        Log.d("ValueTesting", "difference " + difference);
                         long seconds = difference / 1000;
+                        Log.d("ValueTesting", "seconds " + seconds);
                         int speed_time = Integer.parseInt(session.getData(Constant.MCG_TIMER)) - (int) seconds;
+                        Log.d("ValueTesting", "speed_time " + speed_time);
                         int positiveValue = Math.max(speed_time, 0);
+                        Log.d("ValueTesting", "positiveValue " + positiveValue);
                         if (ApiConfig.isConnected(activity)) {
                             if (session.getData(Constant.STATUS).equals("0")) {
                                 if (session.getInt(Constant.REGULAR_TRIAL_COUNT) >= 10) {
@@ -432,7 +448,9 @@ public class HomeFragment extends Fragment {
                                             .setCancelable(false)
                                             .setPositiveButton("Chat Now", new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int id) {
+                                                    Log.d("ValueTesting", "tsLong1 ");
                                                     checkJoining();
+                                                    Log.d("ValueTesting", "tsLong2 ");
 
                                                 }
                                             });
@@ -476,6 +494,7 @@ public class HomeFragment extends Fragment {
                                         long min = 1000000000L; // 10^9
                                         long max = 9999999999L; // 10^10 - 1
                                         long randomNumber = min + ((long) (random.nextDouble() * (max - min)));
+                                        Log.d("ValueTesting", "randomNumber " + randomNumber);
                                         session.setData(Constant.SYNC_UNIQUE_ID,randomNumber + "");
 
                                         //suspectApi();
@@ -537,12 +556,17 @@ public class HomeFragment extends Fragment {
 
 
     private void checkJoining() {
+        Log.d("ValueTesting", "tsLong3 ");
         reference = FirebaseDatabase.getInstance().getReference(Constant.JOINING_TICKET).child(session.getData(Constant.MOBILE));
+        Log.d("ValueTesting", "tsLong4 ");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("ValueTesting", "tsLong5 ");
                 if (!dataSnapshot.exists()) {
+                    Log.d("ValueTesting", "tsLong6 ");
                     joinTicket();
+                    Log.d("ValueTesting", "tsLong7 ");
                 } else {
 
                     Ticket user = dataSnapshot.getValue(Ticket.class);
@@ -561,7 +585,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void joinTicket() {
+        Log.d("ValueTesting", "tsLong8 ");
         Long tsLong = System.currentTimeMillis() / 1000;
+        Log.d("ValueTesting", "tsLong " + tsLong);
         RandomId = session.getData(Constant.USER_ID) + "_" + tsLong.toString();
         reference = FirebaseDatabase.getInstance().getReference(Constant.JOINING_TICKET).child(session.getData(Constant.MOBILE));
         HashMap<String, Object> hashMap = new HashMap<>();
@@ -679,7 +705,8 @@ public class HomeFragment extends Fragment {
                     }
                 }, activity, Constant.WALLET_URL, params, true);
 
-
+                Log.d("WALLET_RES", Constant.WALLET_URL);
+                Log.d("WALLET_RES", params.toString());
             }
 
         } else {
@@ -743,8 +770,11 @@ public class HomeFragment extends Fragment {
                 dialog.cancel();
                 if (session.getData(AD_STATUS).equals("1") && session.getData(AD_TYPE).equals("1")) {
                     SimpleDateFormat df = new SimpleDateFormat("dd/M/yyyy hh:mm:ss", Locale.getDefault());
+                    Log.d("ValueTesting", "df " + df);
                     Date c = Calendar.getInstance().getTime();
+                    Log.d("ValueTesting", "c " + c);
                     String currentDate = df.format(c);
+                    Log.d("ValueTesting", "currentDate " + currentDate);
                     if (!session.getBoolean(Constant.LAST_UPDATED_DATE_STATUS_AD)) {
                         session.setData(Constant.LAST_UPDATED_DATE_AD, currentDate);
                         session.setBoolean(Constant.LAST_UPDATED_DATE_STATUS_AD, true);
@@ -764,11 +794,17 @@ public class HomeFragment extends Fragment {
                         e.printStackTrace();
                     }
                     long different = date1.getTime() - date2.getTime();
+                    Log.d("ValueTesting", "tsLongdifferent " + different);
                     long secondsInMilli = 1000;
+                    Log.d("ValueTesting", "tsLongsecondsInMilli " + secondsInMilli);
                     long minutesInMilli = secondsInMilli * 60;
+                    Log.d("ValueTesting", "minutesInMilli " + minutesInMilli);
                     long hoursInMilli = minutesInMilli * 60;
+                    Log.d("ValueTesting", "hoursInMilli " + hoursInMilli);
                     long elapsedHours = different / hoursInMilli;
+                    Log.d("ValueTesting", "elapsedHours " + elapsedHours);
                     long elapsedMinutue = different / minutesInMilli;
+                    Log.d("ValueTesting", "elapsedMinutue " + elapsedMinutue);
 
                     if (elapsedMinutue >= Long.parseLong(session.getData(Constant.AD_SHOW_TIME))) {
                         session.setBoolean(Constant.LAST_UPDATED_DATE_STATUS_AD, false);

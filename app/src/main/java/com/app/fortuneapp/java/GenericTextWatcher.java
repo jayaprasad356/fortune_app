@@ -22,66 +22,114 @@ public class GenericTextWatcher implements TextWatcher {
     public void afterTextChanged(Editable editable) {
         idcount = idcount +1;
         String text = editable.toString();
-        switch (view.getId()) {
-
-            case R.id.otp_edit_box1:
-                if (text.length() == 1)
-                    editText[1].requestFocus();
-                break;
-            case R.id.otp_edit_box2:
-
-                if (text.length() == 1)
-                    editText[2].requestFocus();
-                else if (text.length() == 0)
-                    editText[0].requestFocus();
-                break;
-            case R.id.otp_edit_box3:
-                if (text.length() == 1)
-                    editText[3].requestFocus();
-                else if (text.length() == 0)
-                    editText[1].requestFocus();
-                break;
-            case R.id.otp_edit_box4:
-                if (text.length() == 1)
-                    editText[4].requestFocus();
-                else if (text.length() == 0)
-                    editText[2].requestFocus();
-                break;
-            case R.id.otp_edit_box5:
-                if (text.length() == 1)
-                    editText[5].requestFocus();
-                else if (text.length() == 0)
-                    editText[3].requestFocus();
-                break;
-            case R.id.otp_edit_box6:
-                if (text.length() == 1)
-                    editText[6].requestFocus();
-                else if (text.length() == 0)
-                    editText[4].requestFocus();
-                break;
-            case R.id.otp_edit_box7:
-                if (text.length() == 1)
-                    editText[7].requestFocus();
-                else if (text.length() == 0)
-                    editText[5].requestFocus();
-                break;
-            case R.id.otp_edit_box8:
-                if (text.length() == 1)
-                    editText[8].requestFocus();
-                else if (text.length() == 0)
-                    editText[6].requestFocus();
-                break;
-            case R.id.otp_edit_box9:
-                if (text.length() == 1)
-                    editText[9].requestFocus();
-                else if (text.length() == 0)
-                    editText[7].requestFocus();
-                break;
-            case R.id.otp_edit_box10:
-                if (text.length() == 0)
-                    editText[8].requestFocus();
-                break;
+        int id = view.getId();
+        if (id == R.id.otp_edit_box1) {
+            if (text.length() == 1)
+                editText[1].requestFocus();
+        } else if (id == R.id.otp_edit_box2) {
+            if (text.length() == 1)
+                editText[2].requestFocus();
+            else if (text.length() == 0)
+                editText[0].requestFocus();
+        } else if (id == R.id.otp_edit_box3) {
+            if (text.length() == 1)
+                editText[3].requestFocus();
+            else if (text.length() == 0)
+                editText[1].requestFocus();
+        } else if (id == R.id.otp_edit_box4) {
+            if (text.length() == 1)
+                editText[4].requestFocus();
+            else if (text.length() == 0)
+                editText[2].requestFocus();
+        } else if (id == R.id.otp_edit_box5) {
+            if (text.length() == 1)
+                editText[5].requestFocus();
+            else if (text.length() == 0)
+                editText[3].requestFocus();
+        } else if (id == R.id.otp_edit_box6) {
+            if (text.length() == 1)
+                editText[6].requestFocus();
+            else if (text.length() == 0)
+                editText[4].requestFocus();
+        } else if (id == R.id.otp_edit_box7) {
+            if (text.length() == 1)
+                editText[7].requestFocus();
+            else if (text.length() == 0)
+                editText[5].requestFocus();
+        } else if (id == R.id.otp_edit_box8) {
+            if (text.length() == 1)
+                editText[8].requestFocus();
+            else if (text.length() == 0)
+                editText[6].requestFocus();
+        } else if (id == R.id.otp_edit_box9) {
+            if (text.length() == 1)
+                editText[9].requestFocus();
+            else if (text.length() == 0)
+                editText[7].requestFocus();
+        } else if (id == R.id.otp_edit_box10) {
+            if (text.length() == 0)
+                editText[8].requestFocus();
         }
+//        switch (view.getId()) {
+//
+//            case R.id.otp_edit_box1:
+//                if (text.length() == 1)
+//                    editText[1].requestFocus();
+//                break;
+//            case R.id.otp_edit_box2:
+//
+//                if (text.length() == 1)
+//                    editText[2].requestFocus();
+//                else if (text.length() == 0)
+//                    editText[0].requestFocus();
+//                break;
+//            case R.id.otp_edit_box3:
+//                if (text.length() == 1)
+//                    editText[3].requestFocus();
+//                else if (text.length() == 0)
+//                    editText[1].requestFocus();
+//                break;
+//            case R.id.otp_edit_box4:
+//                if (text.length() == 1)
+//                    editText[4].requestFocus();
+//                else if (text.length() == 0)
+//                    editText[2].requestFocus();
+//                break;
+//            case R.id.otp_edit_box5:
+//                if (text.length() == 1)
+//                    editText[5].requestFocus();
+//                else if (text.length() == 0)
+//                    editText[3].requestFocus();
+//                break;
+//            case R.id.otp_edit_box6:
+//                if (text.length() == 1)
+//                    editText[6].requestFocus();
+//                else if (text.length() == 0)
+//                    editText[4].requestFocus();
+//                break;
+//            case R.id.otp_edit_box7:
+//                if (text.length() == 1)
+//                    editText[7].requestFocus();
+//                else if (text.length() == 0)
+//                    editText[5].requestFocus();
+//                break;
+//            case R.id.otp_edit_box8:
+//                if (text.length() == 1)
+//                    editText[8].requestFocus();
+//                else if (text.length() == 0)
+//                    editText[6].requestFocus();
+//                break;
+//            case R.id.otp_edit_box9:
+//                if (text.length() == 1)
+//                    editText[9].requestFocus();
+//                else if (text.length() == 0)
+//                    editText[7].requestFocus();
+//                break;
+//            case R.id.otp_edit_box10:
+//                if (text.length() == 0)
+//                    editText[8].requestFocus();
+//                break;
+//        }
     }
 
     @Override

@@ -137,6 +137,8 @@ public class WithdrawalActivity extends AppCompatActivity {
         }, activity, Constant.WITHDRAWAL_URL, params, true);
 
 
+        Log.d("WITHDRAWAL_URL", "WITHDRAWAL_URL: " + Constant.WITHDRAWAL_URL);
+        Log.d("WITHDRAWAL_URL", "WITHDRAWAL_URL: " + params);
     }
 
     private void redeemlist() {

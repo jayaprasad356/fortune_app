@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -81,6 +82,7 @@ public class LoginActivity extends AppCompatActivity implements PopupMenu.OnMenu
     }
     private void openWhatsApp() {
         String url = "https://api.whatsapp.com/send?phone="+"91"+session.getData(Constant.WHATSAPP);
+        Log.d("openWhatsApp","openWhatsApp: " + url);
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);
@@ -105,12 +107,14 @@ public class LoginActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                 String codegenerate = "0",withdrawal_status = "0";
                                 JSONArray userArray = jsonObject.getJSONArray(Constant.DATA);
                                 JSONArray setArray = jsonObject.getJSONArray(Constant.SETTINGS);
+                                session.setData(Constant.STATUS, userArray.getJSONObject(0).getString(Constant.STATUS));
                                 session.setData(Constant.SYNC_TIME,setArray.getJSONObject(0).getString(Constant.SYNC_TIME));
                                 session.setInt(Constant.SYNC_CODES,Integer.parseInt(setArray.getJSONObject(0).getString(Constant.SYNC_CODES)));
                                 session.setData(Constant.REWARD,setArray.getJSONObject(0).getString(Constant.REWARD));
                                 session.setData(Constant.AD_SHOW_TIME,setArray.getJSONObject(0).getString(Constant.AD_SHOW_TIME));
                                 session.setData(Constant.MIN_WITHDRAWAL,setArray.getJSONObject(0).getString(Constant.MIN_WITHDRAWAL));
                                 session.setData(Constant.AD_STATUS,setArray.getJSONObject(0).getString(Constant.AD_STATUS));
+                                session.setData(Constant.TASK_TYPE, userArray.getJSONObject(0).getString(Constant.TASK_TYPE));
                                 session.setData(Constant.FETCH_TIME,setArray.getJSONObject(0).getString(Constant.FETCH_TIME));
                                 session.setData(Constant.AD_REWARD_ID,setArray.getJSONObject(0).getString(Constant.AD_REWARD_ID));
                                 session.setData(Constant.JOIN_CODES,setArray.getJSONObject(0).getString(Constant.JOIN_CODES));
@@ -204,8 +208,8 @@ public class LoginActivity extends AppCompatActivity implements PopupMenu.OnMenu
             //pass url
         }, LoginActivity.this, Constant.LOGIN_URL, params,true);
 
-
-
+        Log.d("LoginActivity", "LoginActivity: " + Constant.LOGIN_URL);
+        Log.d("LoginActivity", "LoginActivity params: " + params);
     }
 
     private void clearFields() {
@@ -295,6 +299,7 @@ public class LoginActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
+        Log.d("onMenuItemClick", "onMenuItemClick: " + menuItem.getItemId() + ", " + session.getData(Constant.PAYMENT_LINK));
         if (menuItem.getItemId() == R.id.payment){
             try {
                 Intent intent = new Intent();
@@ -302,6 +307,7 @@ public class LoginActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
                 intent.setData(Uri.parse(session.getData(Constant.PAYMENT_LINK)));
                 startActivity(intent);
+                Log.d("onMenuItemClick", "onMenuItemClick: " + menuItem.getItemId() + ", " + session.getData(Constant.PAYMENT_LINK));
             }catch (Exception e){
 
             }

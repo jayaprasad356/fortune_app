@@ -52,6 +52,10 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".activities.TicketActivity"
+            android:exported="false">
+        </activity>
+        <activity
             android:name=".activities.CheckInActivity"
             android:exported="false">
             <meta-data

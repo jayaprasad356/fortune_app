@@ -331,6 +331,7 @@
 
 
         <Button
+            android:visibility="gone"
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/card1"
             android:id="@+id/btnApplyLeave"
@@ -343,7 +344,7 @@
 
 
         <androidx.cardview.widget.CardView
-            android:layout_alignParentBottom="true"
+            android:layout_above="@+id/sSpace"
             android:id="@+id/card1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -401,6 +402,11 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <Space
+            android:id="@+id/sSpace"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_10sdp"/>
 
     </RelativeLayout>
 

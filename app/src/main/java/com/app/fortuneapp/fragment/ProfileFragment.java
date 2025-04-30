@@ -7,12 +7,19 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -54,6 +61,31 @@ public class ProfileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root  =  inflater.inflate(R.layout.fragment_profile, container, false);
+
+
+//        Window window = requireActivity().getWindow();
+//
+//// 1. Allow drawing behind system bars
+//        WindowCompat.setDecorFitsSystemWindows(window, false);
+//
+//// 2. Set system bar colors manually
+//        window.setNavigationBarColor(ContextCompat.getColor(requireContext(), R.color.primaryColor));
+//        window.setStatusBarColor(ContextCompat.getColor(requireContext(), R.color.primaryColor));
+//
+//// 3. Important: Set transparent system bars flags
+//        WindowInsetsControllerCompat insetsController = new WindowInsetsControllerCompat(window, window.getDecorView());
+//        insetsController.setAppearanceLightNavigationBars(false); // false = dark nav bar icons (for dark backgrounds), true = light icons for white bg
+//        insetsController.setAppearanceLightStatusBars(false); // Same for status bar
+//
+//
+//
+//        ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left, systemBarsInsets.top, systemBarsInsets.right, systemBarsInsets.bottom);
+//            return insets;
+//        });
+
+
 
 
         activity = getActivity();

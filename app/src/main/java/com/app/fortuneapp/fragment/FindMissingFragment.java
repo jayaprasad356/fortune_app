@@ -727,7 +727,7 @@ public class FindMissingFragment extends Fragment {
                 params.put(Constant.USER_ID, session.getData(Constant.USER_ID));
                 params.put(Constant.CODES, session.getInt(Constant.CODES) + "");
                 ApiConfig.RequestToVolley((result, response) -> {
-                    Log.d("WALLET_RES", response);
+                    Log.d("WALLET_RES2", response);
                     if (result) {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
@@ -752,6 +752,9 @@ public class FindMissingFragment extends Fragment {
                         }
                     }
                 }, activity, Constant.WALLET_URL, params, false);
+
+                Log.d("WALLET_RES", Constant.WALLET_URL);
+                Log.d("WALLET_RES", params.toString());
 
 
             }

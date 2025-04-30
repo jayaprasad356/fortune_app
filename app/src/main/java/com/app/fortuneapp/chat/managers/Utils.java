@@ -60,7 +60,7 @@ import android.widget.ImageView;
 import androidx.core.content.FileProvider;
 import androidx.core.content.res.ResourcesCompat;
 
-import com.app.fortuneapp.BuildConfig;
+//import com.app.fortuneapp.BuildConfig;
 import com.app.fortuneapp.R;
 import com.app.fortuneapp.chat.fcmmodels.Token;
 import com.app.fortuneapp.chat.files.FileUtils;
@@ -74,6 +74,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.CenterInside;
 import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
+import com.google.firebase.BuildConfig;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;

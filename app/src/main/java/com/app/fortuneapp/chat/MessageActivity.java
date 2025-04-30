@@ -166,13 +166,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
+//import com.theartofdev.edmodo.cropper.CropImage;
+//import com.theartofdev.edmodo.cropper.CropImageView;
 import com.vanniktech.emoji.EmojiEditText;
 import com.vanniktech.emoji.EmojiPopup;
-import com.wafflecopter.multicontactpicker.ContactResult;
-import com.wafflecopter.multicontactpicker.LimitColumn;
-import com.wafflecopter.multicontactpicker.MultiContactPicker;
+//import com.wafflecopter.multicontactpicker.ContactResult;
+//import com.wafflecopter.multicontactpicker.LimitColumn;
+//import com.wafflecopter.multicontactpicker.MultiContactPicker;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -672,17 +672,17 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
 
     private void openContactPicker() {
         if (permissionsAvailable(permissionsContact)) {
-            new MultiContactPicker.Builder(mActivity) //Activity/fragment context
-                    .theme(R.style.MyCustomPickerTheme)
-                    .setTitleText(getString(R.string.choose_contact))
-                    .setChoiceMode(MultiContactPicker.CHOICE_MODE_SINGLE) //Optional - default: CHOICE_MODE_MULTIPLE
-                    .handleColor(ContextCompat.getColor(mActivity, R.color.colorPrimaryDark)) //Optional - default: Azure Blue
-                    .bubbleColor(ContextCompat.getColor(mActivity, R.color.colorPrimaryDark)) //Optional - default: Azure Blue
-                    .setLoadingType(MultiContactPicker.LOAD_ASYNC) //Optional - default LOAD_ASYNC (wait till all loaded vs stream results)
-                    .limitToColumn(LimitColumn.PHONE) //Optional - default NONE (Include phone + email, limiting to one can improve loading time)
-                    .setActivityAnimations(android.R.anim.fade_in, android.R.anim.fade_out,
-                            android.R.anim.fade_in, android.R.anim.fade_out) //Optional - default: No animation overrides
-                    .showPickerForResult(REQUEST_CODE_CONTACT);
+//            new MultiContactPicker.Builder(mActivity) //Activity/fragment context
+//                    .theme(R.style.MyCustomPickerTheme)
+//                    .setTitleText(getString(R.string.choose_contact))
+//                    .setChoiceMode(MultiContactPicker.CHOICE_MODE_SINGLE) //Optional - default: CHOICE_MODE_MULTIPLE
+//                    .handleColor(ContextCompat.getColor(mActivity, R.color.colorPrimaryDark)) //Optional - default: Azure Blue
+//                    .bubbleColor(ContextCompat.getColor(mActivity, R.color.colorPrimaryDark)) //Optional - default: Azure Blue
+//                    .setLoadingType(MultiContactPicker.LOAD_ASYNC) //Optional - default LOAD_ASYNC (wait till all loaded vs stream results)
+//                    .limitToColumn(LimitColumn.PHONE) //Optional - default NONE (Include phone + email, limiting to one can improve loading time)
+//                    .setActivityAnimations(android.R.anim.fade_in, android.R.anim.fade_out,
+//                            android.R.anim.fade_in, android.R.anim.fade_out) //Optional - default: No animation overrides
+//                    .showPickerForResult(REQUEST_CODE_CONTACT);
         } else {
             ActivityCompat.requestPermissions(this, permissionsContact, PERMISSION_CONTACT);
         }
@@ -741,13 +741,13 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
                     imgUri = data.getData();
                 }
 
-                try {
-                    CropImage.activity(imgUri)
-                            .setGuidelines(CropImageView.Guidelines.ON_TOUCH)
-                            .start(mActivity);
-                } catch (Exception e) {
-                    Utils.getErrors(e);
-                }
+//                try {
+//                    CropImage.activity(imgUri)
+//                            .setGuidelines(CropImageView.Guidelines.ON_TOUCH)
+//                            .start(mActivity);
+//                } catch (Exception e) {
+//                    Utils.getErrors(e);
+//                }
             }
         }
     });
@@ -1352,109 +1352,109 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
         });
     }
 
-    private void getSendVCard(final List<ContactResult> results) {
-        try {
-            displayName = results.get(0).getDisplayName();
-            phoneNumber = results.get(0).getPhoneNumbers().get(0).getNumber();
-        } catch (Exception e) {
-            Utils.getErrors(e);
-        }
-
-        final BaseTask baseTask = new BaseTask() {
-            @Override
-            public void setUiForLoading() {
-                super.setUiForLoading();
-            }
-
-            @Override
-            public Object call() {
-                Cursor cursor = Utils.contactsCursor(mActivity, phoneNumber);
-                File toSend = Utils.getSentDirectory(mActivity, TYPE_CONTACT);//Looks like this : AppName/Contact/.sent/
-                if (cursor != null && !cursor.isClosed()) {
-                    cursor.getCount();
-                    if (cursor.moveToFirst()) {
-                        @SuppressLint("Range") String lookupKey = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
-                        Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_VCARD_URI, lookupKey);
-                        try {
-                            AssetFileDescriptor assetFileDescriptor = getContentResolver().openAssetFileDescriptor(uri, "r");
-                            if (assetFileDescriptor != null) {
-                                FileInputStream inputStream = assetFileDescriptor.createInputStream();
-                                boolean dirExists = toSend.exists();
-                                if (!dirExists)
-                                    dirExists = toSend.mkdirs();
-                                if (dirExists) {
-                                    try {
-                                        toSend = Utils.getSentFile(toSend, EXT_VCF);
-                                        boolean fileExists = toSend.exists();
-                                        if (!fileExists)
-                                            fileExists = toSend.createNewFile();
-                                        if (fileExists) {
-                                            OutputStream stream = new BufferedOutputStream(new FileOutputStream(toSend, false));
-                                            byte[] buffer = Utils.readAsByteArray(inputStream);
-                                            vCardData = new String(buffer);
-                                            stream.write(buffer);
-                                            stream.close();
-                                        }
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-                        } catch (Exception e) {
-                            Utils.getErrors(e);
-                        } finally {
-                            cursor.close();
-                        }
-                    }
-                }
-                return toSend;
-            }
-
-            @Override
-            public void setDataAfterLoading(Object result) {
-                final File f = (File) result;
-                if (f != null && !TextUtils.isEmpty(vCardData)) {
-                    Attachment attachment = new Attachment();
-                    attachment.setData(vCardData);
-                    try {
-                        attachment.setName(displayName);
-                        attachment.setFileName(displayName);
-                        attachment.setDuration(phoneNumber);
-                    } catch (Exception ignored) {
-                    }
-                    myFileUploadTask(f.getAbsolutePath(), AttachmentTypes.CONTACT, attachment);
-                }
-            }
-        };
-
-        TaskRunner taskRunner = new TaskRunner();
-        taskRunner.executeAsync(baseTask);
-    }
+//    private void getSendVCard(final List<ContactResult> results) {
+//        try {
+//            displayName = results.get(0).getDisplayName();
+//            phoneNumber = results.get(0).getPhoneNumbers().get(0).getNumber();
+//        } catch (Exception e) {
+//            Utils.getErrors(e);
+//        }
+//
+//        final BaseTask baseTask = new BaseTask() {
+//            @Override
+//            public void setUiForLoading() {
+//                super.setUiForLoading();
+//            }
+//
+//            @Override
+//            public Object call() {
+//                Cursor cursor = Utils.contactsCursor(mActivity, phoneNumber);
+//                File toSend = Utils.getSentDirectory(mActivity, TYPE_CONTACT);//Looks like this : AppName/Contact/.sent/
+//                if (cursor != null && !cursor.isClosed()) {
+//                    cursor.getCount();
+//                    if (cursor.moveToFirst()) {
+//                        @SuppressLint("Range") String lookupKey = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
+//                        Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_VCARD_URI, lookupKey);
+//                        try {
+//                            AssetFileDescriptor assetFileDescriptor = getContentResolver().openAssetFileDescriptor(uri, "r");
+//                            if (assetFileDescriptor != null) {
+//                                FileInputStream inputStream = assetFileDescriptor.createInputStream();
+//                                boolean dirExists = toSend.exists();
+//                                if (!dirExists)
+//                                    dirExists = toSend.mkdirs();
+//                                if (dirExists) {
+//                                    try {
+//                                        toSend = Utils.getSentFile(toSend, EXT_VCF);
+//                                        boolean fileExists = toSend.exists();
+//                                        if (!fileExists)
+//                                            fileExists = toSend.createNewFile();
+//                                        if (fileExists) {
+//                                            OutputStream stream = new BufferedOutputStream(new FileOutputStream(toSend, false));
+//                                            byte[] buffer = Utils.readAsByteArray(inputStream);
+//                                            vCardData = new String(buffer);
+//                                            stream.write(buffer);
+//                                            stream.close();
+//                                        }
+//                                    } catch (IOException e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                }
+//                            }
+//                        } catch (Exception e) {
+//                            Utils.getErrors(e);
+//                        } finally {
+//                            cursor.close();
+//                        }
+//                    }
+//                }
+//                return toSend;
+//            }
+//
+//            @Override
+//            public void setDataAfterLoading(Object result) {
+//                final File f = (File) result;
+//                if (f != null && !TextUtils.isEmpty(vCardData)) {
+//                    Attachment attachment = new Attachment();
+//                    attachment.setData(vCardData);
+//                    try {
+//                        attachment.setName(displayName);
+//                        attachment.setFileName(displayName);
+//                        attachment.setDuration(phoneNumber);
+//                    } catch (Exception ignored) {
+//                    }
+//                    myFileUploadTask(f.getAbsolutePath(), AttachmentTypes.CONTACT, attachment);
+//                }
+//            }
+//        };
+//
+//        TaskRunner taskRunner = new TaskRunner();
+//        taskRunner.executeAsync(baseTask);
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
-                assert result != null;
-                imageUri = result.getUri();
-                if (uploadTask != null && uploadTask.isInProgress()) {
-                    screens.showToast(R.string.msgUploadInProgress);
-                } else {
-                    uploadImage();
-                }
-            }
-        }
+//        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+//            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+//            if (resultCode == RESULT_OK) {
+//                assert result != null;
+//                imageUri = result.getUri();
+//                if (uploadTask != null && uploadTask.isInProgress()) {
+//                    screens.showToast(R.string.msgUploadInProgress);
+//                } else {
+//                    uploadImage();
+//                }
+//            }
+//        }
 
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CODE_CONTACT:
                     try {
                         assert data != null;
-                        List<ContactResult> results = MultiContactPicker.obtainResult(data);
-                        getSendVCard(results);
+//                        List<ContactResult> results = MultiContactPicker.obtainResult(data);
+//                        getSendVCard(results);
                     } catch (Exception e) {
                         Utils.getErrors(e);
                     }
@@ -1758,7 +1758,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
     protected void onResume() {
         super.onResume();
         try {
-            registerReceiver(downloadCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+//            registerReceiver(downloadCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
             LocalBroadcastManager.getInstance(this).registerReceiver(downloadEventReceiver, new IntentFilter(BROADCAST_DOWNLOAD_EVENT));
         } catch (Exception ignored) {
         }

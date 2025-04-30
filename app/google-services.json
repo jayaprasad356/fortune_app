@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "346353815179",
-    "project_id": "fortune-app-bc835",
-    "storage_bucket": "fortune-app-bc835.appspot.com"
+    "project_number": "197646166463",
+    "project_id": "fortune-app-e623f",
+    "storage_bucket": "fortune-app-e623f.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:346353815179:android:118712344b9560d752ce8e",
+        "mobilesdk_app_id": "1:197646166463:android:93ecbed970cabc2602590a",
         "android_client_info": {
           "package_name": "com.app.fortuneapp"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "346353815179-uv6btblpa38jcithonep8g0aenslqtl7.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB30tN1lTUsJWgszt2w6VO4yRvJPr-lEWg"
+          "current_key": "AIzaSyDcWR2drz3Lr2hvo5vmAEbwDLvIjWLSBtY"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "346353815179-uv6btblpa38jcithonep8g0aenslqtl7.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

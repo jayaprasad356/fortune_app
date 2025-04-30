@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 
 android {
+    namespace 'com.devlomi.record_view'
     compileSdkVersion 32
 
     defaultConfig {
@@ -28,11 +29,10 @@ dependencies {
 afterEvaluate {
     publishing {
         publications {
-            // Creates a Maven publication called "release".
             release(MavenPublication) {
-                // Applies the component for the release build variant.
-                from components.release
-                // You can then customize attributes of the publication as shown below.
+                // Safely reference the release component for a library
+                from components.findByName("release")
+
                 groupId = 'com.devlomi.record-view'
                 artifactId = 'record-view'
                 version = '3.0.2'

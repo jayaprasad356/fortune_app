@@ -96,6 +96,8 @@ public class SplashActivity extends AppCompatActivity {
                         if (jsonObject.has(Constant.USER_DETAILS)) {
                             JSONArray userArray = jsonObject.getJSONArray(Constant.USER_DETAILS);
                             if (userArray.length() != 0) {
+                                session.setData(Constant.MOBILE, userArray.getJSONObject(0).getString(Constant.MOBILE));
+                                session.setData(Constant.BALANCE, userArray.getJSONObject(0).getString(Constant.BALANCE));
                                 session.setData(Constant.STATUS, userArray.getJSONObject(0).getString(Constant.STATUS));
                                 session.setData(Constant.TOTAL_REFERRALS, userArray.getJSONObject(0).getString(Constant.TOTAL_REFERRALS));
                                 session.setData(Constant.WITHDRAWAL, userArray.getJSONObject(0).getString(Constant.WITHDRAWAL));

@@ -1,21 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
-        android:id="@+id/Profile"
+        android:id="@+id/profile"
         android:icon="@drawable/ic_baseline_person_24"
-        android:title="profile"
-        />
+        android:title="Profile" />
     <item
-        android:id="@+id/Home"
+        android:id="@+id/home"
         android:icon="@drawable/ic_baseline_home_24"
         android:title="Home" />
     <item
-        android:id="@+id/Wallet"
+        android:id="@+id/wallet"
         android:icon="@drawable/ic_baseline_wallet_24"
-        android:title="wallet" />
+        android:title="Wallet" />
     <item
-        android:id="@+id/Support"
+        android:id="@+id/support"
         android:icon="@drawable/supp"
         android:title="Support"/>
 </menu>
