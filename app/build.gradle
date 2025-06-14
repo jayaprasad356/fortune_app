@@ -28,13 +28,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    java {
-        toolchain {
-            languageVersion = JavaLanguageVersion.of(23) // Change based on your Java version
-        }
-    }
+    //    java {
+//        toolchain {
+//            languageVersion = JavaLanguageVersion.of(17) // Change based on your Java version
+//        }
+//    }
+
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     viewBinding {
         enabled = true

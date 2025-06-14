@@ -14,7 +14,8 @@ import java.util.Locale;
 
 public class Constant {
 //    public static final String MainBaseUrl = "https://admin.fortuneapp.in/";
-    public static final String MainBaseUrl = "https://fortune.graymatterworks.com/";
+    public static final String MainBaseUrl = "https://admin.fortuneapp.in/";
+    //public static final String MainBaseUrl = "https://fortune.graymatterworks.com/";
     //public static final String MainBaseUrl = "http://192.168.43.38/fortune/";
     //public static final String MainBaseUrl = "https://demofortune.graymatterworks.com/";
     //public static final String MainBaseUrl = "https://demo.fortuneapp.in/";
@@ -118,6 +119,7 @@ public class Constant {
     public static final String PAYMENT_LINK = "payment_link";
     public static final String DEVICE_ID = "device_id";
     public static final String STATUS = "status";
+    public static final String WORKED_DAYS = "worked_days";
     public static final String REFERRED_BY = "referred_by";
     public static final String REFER_BONUS_SENT = "refer_bonus_sent";
     public static final String CODE_GENERATE = "code_generate";

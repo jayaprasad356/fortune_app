@@ -90,30 +90,14 @@ public class MainActivity extends AppCompatActivity {
 
         //importUrl();
 
-
-        if (NOTIFY_CHAT != null) {
-            if (NOTIFY_CHAT.equals("join_chat")) {
-                checkJoining();
-            }else {
-                navbar.setSelectedItemId(R.id.support);
-                fm.beginTransaction().replace(R.id.Container, new TicketFragment()).commit();
+        userdetailsupdate();
 
 
-            }
-
-
-        } else {
-             if (session.getData(Constant.STATUS).equals("0")) {
+            if (session.getData(Constant.STATUS).equals("0")) {
                 fm.beginTransaction().replace(R.id.Container, new InFoFragment()).commitAllowingStateLoss();
             } else {
-                if (session.getData(Constant.TASK_TYPE).equals("champion")) {
-                    fm.beginTransaction().replace(R.id.Container, new FindMissingFragment()).commit();
-                } else {
-                    fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commit();
-                }
+                fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commit();
             }
-
-        }
 
         navbar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -131,10 +115,7 @@ public class MainActivity extends AppCompatActivity {
                     if (session.getData(Constant.STATUS).equals("0")) {
                         fm.beginTransaction().replace(R.id.Container, new InFoFragment()).commitAllowingStateLoss();
                     } else {
-                        if (session.getData(Constant.TASK_TYPE).equals("champion"))
-                            fm.beginTransaction().replace(R.id.Container, new FindMissingFragment()).commitAllowingStateLoss();
-                        else
-                            fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commitAllowingStateLoss();
+                        fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commitAllowingStateLoss();
                     }
                 } else if (id == R.id.wallet) {
                     if (session.getInt(Constant.CODES) < session.getInt(Constant.SYNC_CODES)){
@@ -150,71 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     else {
                         Toast.makeText(activity, "Please Sync Codes", Toast.LENGTH_SHORT).show();
                     }
-                } else if (id == R.id.support) {
-                    if (session.getInt(Constant.CODES) < session.getInt(Constant.SYNC_CODES)){
-                        if (session.getData(Constant.STATUS).equals("0")) {
-                            checkJoining();
-                        } else {
-                            fm.beginTransaction().replace(R.id.Container, new FaqFragment()).commitAllowingStateLoss();
-                        }
-                    }
-                    else {
-                        Toast.makeText(activity, "Please Sync Codes", Toast.LENGTH_SHORT).show();
-                    }
                 }
-//                switch (item.getItemId()) {
-//                    case R.id.profile:
-//                        if (session.getInt(Constant.CODES) < session.getInt(Constant.SYNC_CODES)){
-//                            fm.beginTransaction().replace(R.id.Container, new ProfileFragment()).commitAllowingStateLoss();
-//
-//                        }
-//                        else {
-//                            Toast.makeText(activity, "Please Sync Codes", Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                        break;
-//                    case R.id.home:
-//                        if (session.getData(Constant.STATUS).equals("0")) {
-//                            fm.beginTransaction().replace(R.id.Container, new InFoFragment()).commitAllowingStateLoss();
-//                        } else {
-//                            if (session.getData(Constant.TASK_TYPE).equals("champion"))
-//                                fm.beginTransaction().replace(R.id.Container, new FindMissingFragment()).commitAllowingStateLoss();
-//                            else
-//                                fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commitAllowingStateLoss();
-//                        }
-//                        break;
-//                    case R.id.wallet:
-//                        if (session.getInt(Constant.CODES) < session.getInt(Constant.SYNC_CODES)){
-//                            try {
-//                                fetch_time = Long.parseLong(session.getData(Constant.FETCH_TIME)) * 1000;
-//                            } catch (Exception e) {
-//                                fetch_time = 5 * 1000;
-//
-//
-//                            }
-//                            showWallet();
-//                        }
-//                        else {
-//                            Toast.makeText(activity, "Please Sync Codes", Toast.LENGTH_SHORT).show();
-//                        }
-//
-//
-//                        break;
-//
-//                    case R.id.support:
-//                        if (session.getInt(Constant.CODES) < session.getInt(Constant.SYNC_CODES)){
-//                            if (session.getData(Constant.STATUS).equals("0")) {
-//                                checkJoining();
-//                            } else {
-//                                fm.beginTransaction().replace(R.id.Container, new FaqFragment()).commitAllowingStateLoss();
-//                            }
-//                        }
-//                        else {
-//                            Toast.makeText(activity, "Please Sync Codes", Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                        break;
-//                }
                 return true;
             }
         });
@@ -223,6 +140,33 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    private void userdetailsupdate() {
+        Map<String, String> params = new HashMap<>();
+        params.put(Constant.USER_ID, session.getData(Constant.USER_ID));
+
+        ApiConfig.RequestToVolley((result, response) -> {
+            if (result) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        JSONObject userData = jsonObject.getJSONObject(Constant.DATA);
+                        session.setData(Constant.WORKED_DAYS, userData.getString(Constant.WORKED_DAYS));
+                    } else {
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    // Optionally: Toast.makeText(activity, "JSON Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(activity, "Error: " + response, Toast.LENGTH_SHORT).show();
+            }
+        }, activity, Constant.USER_DETAILS_URL, params, true);
+
+
+    }
+
     private void checkJoining() {
         //DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constant.JOINING_TICKET).child(session.getData(Constant.MOBILE));
         FirebaseDatabase.getInstance()

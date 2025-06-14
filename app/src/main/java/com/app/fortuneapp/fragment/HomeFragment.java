@@ -737,7 +737,7 @@ public class HomeFragment extends Fragment {
             tvBalance.setText(session.getData(Constant.BALANCE) + " + " + String.format("%.2f", current_bal) + "");
         } catch (Exception e) {
         }
-        tvHistorydays.setText(getHistoryDays(session.getData(Constant.JOINED_DATE)));
+        tvHistorydays.setText(session.getData(Constant.WORKED_DAYS));
         tvLevels.setText(session.getData(Constant.LEVEL));
 
 
