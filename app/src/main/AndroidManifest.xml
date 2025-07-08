@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.app.fortuneapp">
+    package="com.app.fortuneappcompany">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -22,7 +22,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name="com.app.fortuneapp.helper.ApiConfig"
+        android:name="com.app.fortuneappcompany.helper.ApiConfig"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -32,31 +32,31 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
-        <activity android:name=".activities.ApplyLeaveActivity"
+        <activity android:name="com.app.fortuneappcompany.activities.ApplyLeaveActivity"
             android:exported="false" />
 
         <activity
-            android:name=".activities.RepayListActivity"
+            android:name="com.app.fortuneappcompany.activities.RepayListActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.SalaryAdvanceActivity"
+            android:name="com.app.fortuneappcompany.activities.SalaryAdvanceActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ReferDetailsActivity"
+            android:name="com.app.fortuneappcompany.activities.ReferDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.RiseTicketActivity"
+            android:name="com.app.fortuneappcompany.activities.RiseTicketActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".activities.TicketActivity"
+            android:name="com.app.fortuneappcompany.activities.TicketActivity"
             android:exported="false">
         </activity>
         <activity
-            android:name=".activities.CheckInActivity"
+            android:name="com.app.fortuneappcompany.activities.CheckInActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -68,19 +68,19 @@
             android:value="@string/admob_app_id" />
 
         <activity
-            android:name=".activities.NotificaionActivity"
+            android:name="com.app.fortuneappcompany.activities.NotificaionActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.UpdateBankActivity"
+            android:name="com.app.fortuneappcompany.activities.UpdateBankActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ImportDataActivity"
+            android:name="com.app.fortuneappcompany.activities.ImportDataActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.GenrateQRActivity"
+            android:name="com.app.fortuneappcompany.activities.GenrateQRActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.SplashActivity"
+            android:name="com.app.fortuneappcompany.activities.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -89,14 +89,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.UpdateProfileActivity"
+            android:name="com.app.fortuneappcompany.activities.UpdateProfileActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".activities.ReferEarnActivity"
+            android:name="com.app.fortuneappcompany.activities.ReferEarnActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -106,32 +106,32 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" /> <!-- optional (needed if default theme has no action bar) -->
         <activity
-            android:name=".activities.WithdrawalActivity"
+            android:name="com.app.fortuneappcompany.activities.WithdrawalActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.LoginActivity"
+            android:name="com.app.fortuneappcompany.activities.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.SignUpActivity"
+            android:name="com.app.fortuneappcompany.activities.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.app.fortuneappcompany.activities.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".chat.ImageViewerActivity"
+            android:name="com.app.fortuneappcompany.chat.ImageViewerActivity"
             android:exported="false" />
         <activity
-            android:name=".chat.ChatActivity"
+            android:name="com.app.fortuneappcompany.chat.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".chat.BaseActivity"
+            android:name="com.app.fortuneappcompany.chat.BaseActivity"
             android:exported="false" />
         <activity
-            android:name=".chat.MessageActivity"
+            android:name="com.app.fortuneappcompany.chat.MessageActivity"
             android:exported="false" />
 
         <service
-            android:name="com.app.fortuneapp.helper.MyFirebaseMessagingService"
+            android:name="com.app.fortuneappcompany.helper.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

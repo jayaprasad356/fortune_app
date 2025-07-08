@@ -102,7 +102,7 @@
                 android:paddingStart="@dimen/padding12"
                 android:paddingEnd="@dimen/padding7" />
 
-            <com.app.fortuneapp.chat.voiceplayer.PlayerVisualizerSeekbar
+            <com.app.fortuneappcompany.chat.voiceplayer.PlayerVisualizerSeekbar
                 android:id="@+id/seekBarV"
                 android:layout_width="@dimen/padding135"
                 android:layout_height="wrap_content"

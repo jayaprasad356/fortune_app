@@ -9,11 +9,11 @@ android {
     compileSdk 35
 
     defaultConfig {
-        applicationId "com.app.fortuneapp"
+        applicationId "com.app.fortuneappcompany"
         minSdk 23
         targetSdk 35
-        versionCode 18
-        versionName "18.0"
+        versionCode 3
+        versionName "3.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -40,7 +40,7 @@ android {
     viewBinding {
         enabled = true
     }
-    namespace "com.app.fortuneapp"
+    namespace "com.app.fortuneappcompany"
 
 }
 
